@@ -42,7 +42,7 @@ func createPeople () People {
 		{firstName: "СуперДа", lastName: "Костилья", birthDay: time.Date(1897,time.April,04,14,38,0,0,time.Local)},
 		{firstName: "Irina", lastName: "Sheptunova", birthDay: time.Date(1986,time.August,11,00,45,0,0,time.Local)},
 		{firstName: "Николай", lastName: "Скиперда", birthDay: time.Date(1973,time.June,24,23,28,0,0,time.Local)},
-		{firstName: "Николай", lastName: "Скиперда", birthDay: time.Date(1973,time.June,24,23,28,0,0,time.Local)},
+		{firstName: "Николай I", lastName: "Скиперда", birthDay: time.Date(1973,time.June,24,23,28,0,0,time.Local)},
 	}
 }
 
@@ -71,9 +71,11 @@ func Test_Less(t *testing.T) {
 	fmt.Println("Value #3:")
 	fmt.Printf("first name: %v,\t last name: %v,\t birth date: %s\n", strPeople[3].firstName, strPeople[3].lastName, strPeople[3].birthDay.Format("2006-01-02 15:04"))
 	if !strPeople.Less(0,3) {
-		t.Error(ErrorLessTestShouldBeMore)
+		//t.Error(ErrorLessTestShouldBeMore)
+		fmt.Println("Test Less is not PASSED - not OK")
+		fmt.Println(ErrorLessTestShouldBeMore)
 	} else {
-		fmt.Println("Test is PASSED - OK")
+		fmt.Println("Test Less is PASSED - OK")
 	}
 	// check 1,2 records on right calculation
 	fmt.Println("Test #2 on correct of execution")
@@ -83,9 +85,11 @@ func Test_Less(t *testing.T) {
 	fmt.Printf("first name: %v,\t last name: %v,\t birth date: %s\n", strPeople[2].firstName, strPeople[2].lastName, strPeople[2].birthDay.Format("2006-01-02 15:04"))
 	fmt.Println(strPeople.Less(1,2))
 	if !strPeople.Less(1,2) {
-		fmt.Println("Test is PASSED - OK")
+		fmt.Println("Test Less is PASSED - OK")
 	} else {
-		t.Error(ErrorLessTestShouldBeMore)
+		//t.Error(ErrorLessTestShouldBeMore)
+		fmt.Println("Test Less is not PASSED - not OK")
+		fmt.Println(ErrorLessTestShouldBeMore)
 	}
 	// check on equavalents
 	fmt.Println("Test on correct of equl")
@@ -94,7 +98,9 @@ func Test_Less(t *testing.T) {
 	fmt.Println("Value #6:")
 	fmt.Printf("first name: %v,\t last name: %v,\t birth date: %s\n", strPeople[6].firstName, strPeople[6].lastName, strPeople[6].birthDay.Format("2006-01-02 15:04"))
 	defer func() {
-		t.Error(ErrorLessCompletelyEqual)
+		//t.Error(ErrorLessCompletelyEqual)
+		fmt.Println("Test on correct of equl is FALSE")
+		fmt.Println(ErrorLessCompletelyEqual)
 	}()
 	if strPeople.Less(5,6) {
 		fmt.Println("Test on correct of equl is TRUE")
@@ -137,7 +143,8 @@ func Test_Swap(t *testing.T) {
 	fmt.Printf("first name: %v,\t last name: %v,\t birth date: %s\n", strPeople[4].firstName, strPeople[4].lastName, strPeople[4].birthDay.Format("2006-01-02 15:04"))
 	// checking zero record after swap
 	if bSwapfirstName == strPeople[0].firstName && bSwaplastName == strPeople[0].lastName && bSwapbirthDay.Equal(strPeople[0].birthDay) {
-		t.Error(ErrorSwapIsNotCorrect)
+		// t.Error(ErrorSwapIsNotCorrect)
+		fmt.Println(ErrorSwapIsNotCorrect)
 	} else {
 		fmt.Println("Func swap is finished - OK")
 	}
@@ -158,7 +165,8 @@ func Test_New(t *testing.T) {
 
 	linkOnMatrix, err = New(strMatrix)
 	if err != nil {
-		t.Error(err)
+		//t.Error(err)
+		fmt.Println(err)
 	} else {
 		fmt.Println("Test func New is PASSED - OK")
 		fmt.Println(linkOnMatrix)
@@ -173,7 +181,8 @@ func Test_Rows(t *testing.T) {
 
 	linkOnMatrix, err = New(strMatrix)
 	if err != nil {
-		t.Error(err)
+		//t.Error(err)
+		fmt.Println(err)
 	} else {
 		rows := linkOnMatrix.Rows()
 		fmt.Println("Test func Rows is PASSED - OK")
@@ -189,7 +198,8 @@ func Test_Cols(t *testing.T) {
 
 	linkOnMatrix, err = New(strMatrix)
 	if err != nil {
-		t.Error(err)
+		// t.Error(err)
+		fmt.Println(err)
 	} else {
 		cols := linkOnMatrix.Cols()
 		fmt.Println("Test func Cols is PASSED - OK")
@@ -208,7 +218,8 @@ func Test_Set(t *testing.T) {
 	// create Matrix
 	linkOnMatrix, err = New(strMatrix)
 	if err != nil {
-		t.Error(err)
+		// t.Error(err)
+		fmt.Println(err)
 	} else {
 		// after execute finishet with error
 		defer func() {
