@@ -157,10 +157,17 @@ func createMatrix() string {
 	//return "9223372036854775807 9223372036854775890 9223372036854775112\n9223372036854775999 9223372036854775807 9223372036854771999\n9223372036854775898 9223372036854775845 9223372036854775113"
 }
 
+func createMatrixDifferentOfLenght() string {
+	return "1 2 3 4 5\n5 4 3 2 100 10\n1 2 3 3 2"
+}
+
+
 // Test Matrix new
 func Test_New(t *testing.T) {
 	var strMatrix string = createMatrix()
+	var strMatrixOfLenght = createMatrixDifferentOfLenght()
 	var linkOnMatrix *Matrix
+	var linkOnMatrixLen *Matrix
 	var err error
 
 	linkOnMatrix, err = New(strMatrix)
@@ -170,6 +177,16 @@ func Test_New(t *testing.T) {
 	} else {
 		fmt.Println("Test func New is PASSED - OK")
 		fmt.Println(linkOnMatrix)
+	}
+	// different leng of row checking
+	linkOnMatrixLen, err = New(strMatrixOfLenght)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Test func New for lenght checking is PASSED - OK")
+		fmt.Println(linkOnMatrixLen)
+	} else {
+		fmt.Println(linkOnMatrixLen)
+		fmt.Println("Test func New for lenght checking is NOT PASSED - Not OK")
 	}
 }
 
@@ -215,6 +232,24 @@ func Test_Set(t *testing.T) {
 	var resultSet bool
 	var triggerError bool = false
 
+	// create test map
+	type curVal struct {
+		x int
+		y int
+		val int
+	}
+
+	testMap := make([]curVal, 3, 3)
+	testMap[0].x = -1
+	testMap[0].y = 2
+	testMap[0].val = 10
+	testMap[1].x = 100
+	testMap[1].y = 1
+	testMap[1].val = 123
+	testMap[2].x = 10
+	testMap[2].y = 1
+	testMap[2].val = 1230
+
 	// create Matrix
 	linkOnMatrix, err = New(strMatrix)
 	if err != nil {
@@ -227,6 +262,16 @@ func Test_Set(t *testing.T) {
 				t.Error(ErrorSetIsNotWork)
 			}
 		}()
+		// check input parameters
+		for iterTest, valOfRes := range testMap {
+			if linkOnMatrix.Set(valOfRes.x, valOfRes.y, valOfRes.val)	{
+				fmt.Printf("input values of test #%v is corret: %v, %v, %v\n",iterTest, valOfRes.x, valOfRes.y, valOfRes.val)
+				fmt.Printf("Test #%v is PASSED - OK\n", iterTest)
+			} else {
+				fmt.Printf("input values of test #%v is corret: %v, %v, %v\n",iterTest, valOfRes.x, valOfRes.y, valOfRes.val)
+				fmt.Printf("Test #%v is not PASSED - not OK\n", iterTest)
+			}
+		}
 		// get rows 
 		checkValMatrix := linkOnMatrix.Rows()
 		// change value into Matrix
