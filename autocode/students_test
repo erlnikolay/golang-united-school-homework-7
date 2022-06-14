@@ -161,13 +161,18 @@ func createMatrixDifferentOfLenght() string {
 	return "1 2 3 4 5\n5 4 3 2 100 10\n1 2 3 3 2"
 }
 
+func createMatrixWithCharElemet() string {
+	return "1 2 3 4 5\n5 4 3 2 AB\n1 2 3 3 2"
+}
 
 // Test Matrix new
 func Test_New(t *testing.T) {
 	var strMatrix string = createMatrix()
 	var strMatrixOfLenght = createMatrixDifferentOfLenght()
+	var strMatrixWithCharElement = createMatrixWithCharElemet()
 	var linkOnMatrix *Matrix
 	var linkOnMatrixLen *Matrix
+	var linkOnMatrixWithChar *Matrix
 	var err error
 
 	linkOnMatrix, err = New(strMatrix)
@@ -175,18 +180,26 @@ func Test_New(t *testing.T) {
 		//t.Error(err)
 		fmt.Println(err)
 	} else {
-		fmt.Println("Test func New is PASSED - OK")
 		fmt.Println(linkOnMatrix)
+		fmt.Println("Test func New is PASSED - OK")
 	}
 	// different leng of row checking
 	linkOnMatrixLen, err = New(strMatrixOfLenght)
 	if err != nil {
-		fmt.Println(err)
 		fmt.Println("Test func New for lenght checking is PASSED - OK")
-		fmt.Println(linkOnMatrixLen)
 	} else {
 		fmt.Println(linkOnMatrixLen)
 		fmt.Println("Test func New for lenght checking is NOT PASSED - Not OK")
+	}
+
+	// Char element is checking
+	linkOnMatrixWithChar, err = New(strMatrixWithCharElement)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Test func New with char element checking is PASSED - OK")
+	} else {
+		fmt.Println(linkOnMatrixWithChar)
+		fmt.Println("Test func New with char element checking is NOT PASSED - Not OK")
 	}
 }
 
